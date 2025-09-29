@@ -33,14 +33,8 @@
             label3 = new Label();
             dateTimePicker2 = new DateTimePicker();
             dataGridView1 = new DataGridView();
-            label4 = new Label();
-            dateTimePicker3 = new DateTimePicker();
-            textBox1 = new TextBox();
-            groupBox1 = new GroupBox();
-            label5 = new Label();
             dateTimePicker1 = new DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -53,7 +47,7 @@
             // 
             // label2
             // 
-            label2.Location = new Point(12, 313);
+            label2.Location = new Point(17, 75);
             label2.Name = "label2";
             label2.Size = new Size(53, 21);
             label2.TabIndex = 3;
@@ -62,7 +56,7 @@
             // 
             // label3
             // 
-            label3.Location = new Point(147, 313);
+            label3.Location = new Point(152, 75);
             label3.Name = "label3";
             label3.Size = new Size(53, 21);
             label3.TabIndex = 5;
@@ -70,7 +64,9 @@
             // 
             // dateTimePicker2
             // 
-            dateTimePicker2.Location = new Point(147, 337);
+            dateTimePicker2.CustomFormat = "dd-MM-yyyy";
+            dateTimePicker2.Format = DateTimePickerFormat.Custom;
+            dateTimePicker2.Location = new Point(152, 99);
             dateTimePicker2.Name = "dateTimePicker2";
             dateTimePicker2.Size = new Size(109, 23);
             dateTimePicker2.TabIndex = 4;
@@ -79,57 +75,18 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 379);
+            dataGridView1.Location = new Point(17, 141);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(529, 150);
+            dataGridView1.Size = new Size(529, 213);
             dataGridView1.TabIndex = 6;
-            // 
-            // label4
-            // 
-            label4.Location = new Point(6, 34);
-            label4.Name = "label4";
-            label4.Size = new Size(53, 21);
-            label4.TabIndex = 8;
-            label4.Text = "Desde:";
-            // 
-            // dateTimePicker3
-            // 
-            dateTimePicker3.Location = new Point(6, 58);
-            dateTimePicker3.Name = "dateTimePicker3";
-            dateTimePicker3.Size = new Size(139, 23);
-            dateTimePicker3.TabIndex = 7;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(161, 58);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(357, 23);
-            textBox1.TabIndex = 9;
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(label5);
-            groupBox1.Controls.Add(dateTimePicker3);
-            groupBox1.Controls.Add(textBox1);
-            groupBox1.Controls.Add(label4);
-            groupBox1.Location = new Point(17, 80);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(524, 105);
-            groupBox1.TabIndex = 10;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Crear tarea";
-            // 
-            // label5
-            // 
-            label5.Location = new Point(161, 34);
-            label5.Name = "label5";
-            label5.Size = new Size(94, 21);
-            label5.TabIndex = 10;
-            label5.Text = "Descripcion";
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
             // 
             // dateTimePicker1
             // 
-            dateTimePicker1.Location = new Point(12, 337);
+            dateTimePicker1.CustomFormat = "dd-MM-yyyy";
+            dateTimePicker1.Format = DateTimePickerFormat.Custom;
+            dateTimePicker1.Location = new Point(17, 99);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(109, 23);
             dateTimePicker1.TabIndex = 1;
@@ -138,8 +95,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(558, 531);
-            Controls.Add(groupBox1);
+            ClientSize = new Size(563, 373);
             Controls.Add(dataGridView1);
             Controls.Add(label3);
             Controls.Add(dateTimePicker2);
@@ -149,8 +105,6 @@
             Name = "TaskList";
             Text = "Registro y Gestión de Tareas";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -161,11 +115,8 @@
         private Label label3;
         private DateTimePicker dateTimePicker2;
         private DataGridView dataGridView1;
-        private Label label4;
-        private DateTimePicker dateTimePicker3;
-        private TextBox textBox1;
-        private GroupBox groupBox1;
-        private Label label5;
         private DateTimePicker dateTimePicker1;
+
+
     }
 }
