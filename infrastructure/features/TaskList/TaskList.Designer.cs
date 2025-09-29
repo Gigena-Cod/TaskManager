@@ -34,6 +34,7 @@
             dateTimePicker2 = new DateTimePicker();
             dataGridView1 = new DataGridView();
             dateTimePicker1 = new DateTimePicker();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -74,13 +75,12 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(17, 141);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(529, 213);
             dataGridView1.TabIndex = 6;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
             // 
             // dateTimePicker1
             // 
@@ -91,11 +91,22 @@
             dateTimePicker1.Size = new Size(109, 23);
             dateTimePicker1.TabIndex = 1;
             // 
+            // button1
+            // 
+            button1.Location = new Point(440, 94);
+            button1.Name = "button1";
+            button1.Size = new Size(106, 28);
+            button1.TabIndex = 7;
+            button1.Text = "Buscar";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += this.btnFilter_Click;
+            // 
             // TaskList
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(563, 373);
+            Controls.Add(button1);
             Controls.Add(dataGridView1);
             Controls.Add(label3);
             Controls.Add(dateTimePicker2);
@@ -116,7 +127,6 @@
         private DateTimePicker dateTimePicker2;
         private DataGridView dataGridView1;
         private DateTimePicker dateTimePicker1;
-
-
+        private Button button1;
     }
 }

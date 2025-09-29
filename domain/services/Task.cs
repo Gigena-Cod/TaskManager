@@ -23,10 +23,19 @@ namespace TaskManager.Domain.Services
         }
 
         // Get all tasks
-        public List<Task> GetAll()
+        public List<Task> GetFiltered(DateTime? dateFrom, DateTime? dateTo)
         {
-            return _tasks.ToList(); // devuelve una copia
+            var query = _tasks.AsEnumerable();
+
+            if (dateFrom.HasValue)
+                query = query.Where(t => t.Date.Date >= dateFrom.Value.Date);
+
+            if (dateTo.HasValue)
+                query = query.Where(t => t.Date.Date <= dateTo.Value.Date);
+
+            return query.ToList();
         }
+
 
         // Get task by description (simple ejemplo de búsqueda)
         public Task? GetByDescription(string description)

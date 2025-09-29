@@ -1,3 +1,4 @@
+using System.Windows.Forms.VisualStyles;
 using TaskManager.Domain.Services;
 
 namespace TaskManager
@@ -21,14 +22,26 @@ namespace TaskManager
 
         private void LoadTasks()
         {
-            // Obtener todas las tareas
-            var tasks = _taskService.GetAll();
+            DateTime? from = dateTimePicker1.Value;
+            DateTime? to = dateTimePicker2.Value;
+
+            var filteredTasks = _taskService.GetFiltered(from, to);
 
             // Enlazar al DataGridView
             dataGridView1.DataSource = null; // limpiar primero
-            dataGridView1.DataSource = tasks;
+            dataGridView1.DataSource = filteredTasks;
         }
 
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            DateTime? from = dateTimePicker1.Value;
+            DateTime? to = dateTimePicker2.Value; 
+
+            var filteredTasks = _taskService.GetFiltered(from, to);
+            dataGridView1.DataSource = null;
+            dataGridView1.DataSource = filteredTasks;
+        }
 
         private void label2_Click(object sender, EventArgs e)
         {
