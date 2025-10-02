@@ -2,15 +2,15 @@
 {
     internal class Task
     {
-        public string Description { get; set; }
-        public DateTime Date { get; set; }
-        public string Status { get; set; }
+        public string description { get; set; }
+        public DateTime date { get; set; }
+        public string status { get; set; }
 
         public Task(string description, DateTime date, string status)
         {
-            Description = description;
-            Date = date;
-            Status = status;
+            this.description = description;
+            this.date = date;
+            this.status = status;
         }
     }
 }

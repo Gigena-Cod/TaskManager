@@ -1,75 +1,71 @@
-﻿using Task = TaskManager.Domain.Models.Task;
+﻿using System.Data;
+using TaskManager.domain.repository; 
+using Task = TaskManager.Domain.Models.Task;
 
 namespace TaskManager.Domain.Services
 {
     internal class TaskService
     {
-        private readonly List<Task> _tasks;
+        private readonly Repository _repository;
 
         public TaskService()
         {
-            // Mock de tareas iniciales
-            _tasks = new List<Task>
-            {
-                new Task("Buy groceries", DateTime.Now.AddDays(-2), "Completed"),
-                new Task("Finish project report", DateTime.Now.AddDays(-1), "In Progress"),
-                new Task("Call the doctor", DateTime.Now, "Pending"),
-                new Task("Prepare presentation", DateTime.Now.AddDays(1), "Pending"),
-                new Task("Go to the gym", DateTime.Now.AddDays(2), "In Progress"),
-                new Task("Read a book", DateTime.Now.AddDays(3), "Pending"),
-                new Task("Pay bills", DateTime.Now.AddDays(-3), "Completed"),
-                new Task("Team meeting", DateTime.Now.AddHours(5), "In Progress")
-            };
+            _repository = new Repository();
         }
 
-        // Get all tasks
+        // Obtener todas las tareas (con filtros opcionales por fecha)
         public List<Task> GetFiltered(DateTime? dateFrom, DateTime? dateTo)
         {
-            var query = _tasks.AsEnumerable();
+            string query = "SELECT Description, [Date], Status FROM Tasks WHERE 1=1";
 
             if (dateFrom.HasValue)
-                query = query.Where(t => t.Date.Date >= dateFrom.Value.Date);
+                query += $" AND [Date] >= #{dateFrom.Value:MM/dd/yyyy}#";
 
             if (dateTo.HasValue)
-                query = query.Where(t => t.Date.Date <= dateTo.Value.Date);
+                query += $" AND [Date] <= #{dateTo.Value:MM/dd/yyyy}#";
 
-            return query.ToList();
+            DataTable dt = _repository.Get(query);
+
+            return dt.AsEnumerable().Select(row =>
+                new Task(
+                    row["Description"].ToString(),
+                    Convert.ToDateTime(row["Date"]),
+                    row["Status"].ToString()
+                )
+            ).ToList();
         }
 
-
-        // Get task by description (simple ejemplo de búsqueda)
+        // Obtener tarea por descripción
         public Task? GetByDescription(string description)
         {
-            return _tasks.FirstOrDefault(t => t.Description.Equals(description, StringComparison.OrdinalIgnoreCase));
+            string query = $"SELECT Description, [Date], Status FROM Tasks WHERE Description = '{description.Replace("'", "''")}'";
+
+            DataTable dt = _repository.Get(query);
+            if (dt.Rows.Count == 0) return null;
+
+            var row = dt.Rows[0];
+            return new Task(row["Description"].ToString(), Convert.ToDateTime(row["Date"]), row["Status"].ToString());
         }
 
-        // Create new task
+        // Crear nueva tarea
         public void Create(Task task)
         {
-            _tasks.Add(task);
+            string query = $"INSERT INTO Tasks (Description, [Date], Status) VALUES ('{task.description.Replace("'", "''")}', #{task.date:MM/dd/yyyy}#, '{task.status}')";
+            _repository.Execute(query);
         }
 
-        // Update task (by description en este mock)
-        public bool Update(string description, Task updatedTask)
+        // Actualizar tarea (ejemplo: por descripción)
+        public bool Update(string oldDescription, Task updatedTask)
         {
-            var task = GetByDescription(description);
-            if (task == null) return false;
-
-            task.Description = updatedTask.Description;
-            task.Date = updatedTask.Date;
-            task.Status = updatedTask.Status;
-
-            return true;
+            string query = $"UPDATE Tasks SET Description='{updatedTask.description.Replace("'", "''")}', [Date]=#{updatedTask.date:MM/dd/yyyy}#, Status='{updatedTask.status}' WHERE Description='{oldDescription.Replace("'", "''")}'";
+            return _repository.Execute(query) > 0;
         }
 
-        // Delete task (by description en este mock)
+        // Eliminar tarea
         public bool Delete(string description)
         {
-            var task = GetByDescription(description);
-            if (task == null) return false;
-
-            _tasks.Remove(task);
-            return true;
+            string query = $"DELETE FROM Tasks WHERE Description='{description.Replace("'", "''")}'";
+            return _repository.Execute(query) > 0;
         }
     }
 }

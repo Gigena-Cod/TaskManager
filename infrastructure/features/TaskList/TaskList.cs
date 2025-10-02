@@ -6,7 +6,7 @@ namespace TaskManager
     public partial class TaskList : Form
     {
         private readonly TaskService _taskService;
-
+ 
         public TaskList()
         {
             InitializeComponent();
@@ -18,7 +18,29 @@ namespace TaskManager
 
             // Cargar datos iniciales
             LoadTasks();
+
+            // Evitar que se redimensione
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+
+            // Evitar que se mueva (deshabilita el arrastre desde la barra de título)
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
+
+        // Sobrescribir WndProc para bloquear movimiento
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_NCLBUTTONDOWN = 0xA1;
+            const int HTCAPTION = 0x2;
+
+            if (m.Msg == WM_NCLBUTTONDOWN && (int)m.WParam == HTCAPTION)
+            {
+                return; // Bloquea arrastre
+            }
+            base.WndProc(ref m);
+        }
+
 
         private void LoadTasks()
         {

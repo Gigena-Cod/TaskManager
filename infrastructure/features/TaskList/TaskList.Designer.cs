@@ -20,6 +20,7 @@
             base.Dispose(disposing);
         }
 
+
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -99,7 +100,7 @@
             button1.TabIndex = 7;
             button1.Text = "Buscar";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += this.btnFilter_Click;
+            button1.Click += btnFilter_Click;
             // 
             // TaskList
             // 
@@ -114,6 +115,7 @@
             Controls.Add(dateTimePicker1);
             Controls.Add(label1);
             Name = "TaskList";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Registro y Gestión de Tareas";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
